@@ -21,9 +21,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'DM Sans', sans-serif;
       color: var(--text-dark);
@@ -39,17 +37,18 @@
     /* ── TYPOGRAPHY ── */
     .font-display { font-family: 'Playfair Display', serif; }
 
+    /* ── TOPBAR ── */
+    .topbar { background: var(--blue-deep); }
+
     /* ── NAVBAR ── */
     #navbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      transition: background .4s, box-shadow .4s, padding .4s;
-    }
-    #navbar.scrolled {
       background: rgba(255,255,255,.97);
-      box-shadow: 0 2px 32px rgba(10,31,68,.10);
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
+      box-shadow: 0 2px 32px rgba(10,31,68,.08);
+      transition: background .4s, box-shadow .4s;
     }
+    #navbar.scrolled { box-shadow: 0 2px 32px rgba(10,31,68,.15); }
+
     .nav-link {
       position: relative;
       font-size: .93rem; font-weight: 500; letter-spacing: .03em;
@@ -82,19 +81,11 @@
     .counter-done { transition: none; }
 
     /* ── CARDS ── */
-    .card-hover {
-      transition: transform .3s ease, box-shadow .3s ease;
-    }
-    .card-hover:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(10,31,68,.13);
-    }
+    .card-hover { transition: transform .3s ease, box-shadow .3s ease; }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(10,31,68,.13); }
 
     /* ── SECTION REVEAL ── */
-    .reveal {
-      opacity: 0; transform: translateY(36px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: .1s; }
     .reveal-delay-2 { transition-delay: .2s; }
@@ -148,10 +139,7 @@
     }
 
     /* ── ACCORDION ── */
-    .acc-body {
-      max-height: 0; overflow: hidden;
-      transition: max-height .4s ease, padding .3s ease;
-    }
+    .acc-body { max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .3s ease; }
     .acc-body.open { max-height: 600px; }
     .acc-icon { transition: transform .35s ease; }
     .acc-icon.open { transform: rotate(45deg); }
@@ -189,12 +177,7 @@
     ::-webkit-scrollbar-thumb { background: var(--blue-mid); border-radius: 3px; }
 
     /* ── PAGE HEADER ── */
-    .page-header-bg {
-      background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 100%);
-    }
-
-    /* top bar */
-    .topbar { background: var(--blue-deep); }
+    .page-header-bg { background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 100%); }
 
     /* tab active */
     .tab-btn.active-tab { background: var(--blue-bright); color: #fff; }
@@ -203,26 +186,6 @@
     .price-badge {
       background: var(--blue-light); color: var(--blue-bright);
       font-weight: 700; border-radius: 6px; padding: 3px 10px; font-size: .82rem;
-    }
-
-    /* team card */
-    .team-card {
-      border-radius: 16px; overflow: hidden;
-      background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid));
-      aspect-ratio: 3/4;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      position: relative;
-    }
-    .team-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,31,68,.9) 0%, rgba(10,31,68,.1) 60%);
-    }
-    .team-avatar {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-70%);
-      width: 80px; height: 80px; border-radius: 50%;
-      background: rgba(255,255,255,.15); border: 3px solid rgba(255,255,255,.3);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2rem;
     }
 
     /* animated underline for hero */
@@ -241,12 +204,6 @@
     .float-anim { animation: float-y 6s ease-in-out infinite; }
     .float-anim-2 { animation: float-y 8s ease-in-out infinite .5s; }
 
-    /* pulse dot */
-    @keyframes pulse-ring { 0% { transform: scale(.95); box-shadow: 0 0 0 0 rgba(29,111,216,.5); }
-      70% { transform: scale(1); box-shadow: 0 0 0 14px rgba(29,111,216,0); }
-      100% { transform: scale(.95); box-shadow: 0 0 0 0 rgba(29,111,216,0); } }
-    .pulse-dot { animation: pulse-ring 2s infinite; }
-
     /* stagger children */
     .stagger > * { opacity: 0; transform: translateY(20px); transition: opacity .5s, transform .5s; }
     .stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:.05s; }
@@ -257,103 +214,256 @@
     /* progress bar */
     .prog-bar { height: 4px; border-radius: 2px; background: var(--blue-light); overflow: hidden; }
     .prog-fill { height: 100%; border-radius: 2px; background: var(--blue-bright); width: 0; transition: width 1.2s ease; }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE STYLES
+    ══════════════════════════════════════ */
+
+    /* Container utilitaire */
+    .container-fluid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    /* ── TOPBAR responsive ── */
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .topbar-left, .topbar-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── NAVBAR responsive ── */
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 64px;
+    }
+    #desktop-nav { display: flex; align-items: center; gap: 32px; }
+    #hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+
+    /* ── HERO grid ── */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-stats { display: flex; flex-direction: column; gap: 20px; }
+
+    /* ── 2-col grids ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .grid-2-start { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .grid-2-contact { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .grid-3-cqp { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; }
+    .grid-2-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* ── Footer grid ── */
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+
+    /* ── CQP info grid ── */
+    .cqp-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+
+    /* ── TABLET (≤ 1024px) ── */
+    @media (max-width: 1024px) {
+      .container-fluid { padding: 0 32px; }
+      .navbar-inner { padding: 12px 32px; }
+      #desktop-nav { display: none !important; }
+      #hamburger { display: flex !important; }
+
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-stats { flex-direction: row; flex-wrap: wrap; gap: 16px; }
+      .hero-stats > div { flex: 1; min-width: 200px; margin-left: 0 !important; }
+      .float-anim-2 { animation: none; }
+
+      .grid-2 { grid-template-columns: 1fr; gap: 40px; }
+      .grid-2-start { grid-template-columns: 1fr; gap: 40px; }
+      .grid-2-contact { grid-template-columns: 1fr; gap: 40px; }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .grid-3-cqp { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .cqp-info-grid { grid-template-columns: 1fr; gap: 32px; }
+      .grid-2-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── MOBILE (≤ 640px) ── */
+    @media (max-width: 640px) {
+      .container-fluid { padding: 0 16px; }
+      .navbar-inner { padding: 10px 16px; }
+
+      /* Topbar : masquer les items secondaires */
+      .topbar-hours { display: none; }
+      .topbar-inner { font-size: .72rem; }
+
+      /* Hero */
+      .hero-section { padding: 48px 0 64px; }
+      .hero-grid { gap: 32px; }
+      .hero-stats { flex-direction: column; }
+      .hero-stats > div { margin-left: 0 !important; width: 100%; }
+      .hero-btns { flex-direction: column; gap: 12px; }
+      .hero-btns a { text-align: center; }
+
+      /* Sections */
+      .section-pad { padding: 56px 0; }
+      .section-pad-sm { padding: 40px 0; }
+
+      /* Grids → colonne unique */
+      .grid-2 { grid-template-columns: 1fr; gap: 28px; }
+      .grid-2-start { grid-template-columns: 1fr; gap: 28px; }
+      .grid-2-contact { grid-template-columns: 1fr; gap: 28px; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .grid-3-cqp { grid-template-columns: 1fr; }
+      .grid-2-2 { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .cqp-info-grid { grid-template-columns: 1fr; gap: 28px; }
+
+      /* Mobile menu top offset */
+      #mobile-menu { top: 57px !important; }
+
+      /* Stat cards on about page */
+      .stats-counter { grid-template-columns: 1fr 1fr; }
+
+      /* Table scroll */
+      .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .data-table td, .data-table th { white-space: nowrap; }
+
+      /* Form 2-col → 1-col */
+      .form-grid-2 { grid-template-columns: 1fr !important; }
+
+      /* Footer bottom */
+      .footer-bottom { flex-direction: column; text-align: center; gap: 8px; }
+
+      /* Hero text size */
+      .hero-title { font-size: 2rem !important; }
+      .page-header-title { font-size: 1.8rem !important; }
+
+      /* Buttons full width on mobile */
+      .btn-full-mobile { width: 100%; text-align: center; }
+
+      /* CQP banner */
+      .cqp-banner { padding: 32px 20px !important; }
+    }
+
+    /* ── VERY SMALL (≤ 380px) ── */
+    @media (max-width: 380px) {
+      .grid-4 { grid-template-columns: 1fr; }
+      .stats-counter { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
 <!-- ═══════════════════ TOP BAR ═══════════════════ -->
-<div class="topbar text-white py-2 px-4 text-xs flex justify-between items-center" style="display:flex">
-  <div class="flex gap-6 items-center" style="display:flex;gap:24px;align-items:center">
-    <span>📍 Bingerville, Cité Ceffal, Côte d'Ivoire</span>
-    <span class="hidden md:inline">🕐 Lun – Sam : 08h00 – 18h00</span>
-  </div>
-  <div class="flex gap-6 items-center" style="display:flex;gap:24px;align-items:center">
-    <span>✉️ cbsformation0@gmail.com</span>
-    <span class="hidden md:inline">📞 +225 01 41 58 58 12</span>
+<div class="topbar text-white py-2 px-4" style="font-size:.75rem">
+  <div class="container-fluid topbar-inner">
+    <div class="topbar-left">
+      <span>📍 Bingerville, Cité Ceffal, Côte d'Ivoire</span>
+      <span class="topbar-hours">🕐 Lun – Sam : 08h00 – 18h00</span>
+    </div>
+    <div class="topbar-right">
+      <span>✉️ cbsformation0@gmail.com</span>
+      <span class="topbar-hours">📞 +225 01 41 58 58 12</span>
+    </div>
   </div>
 </div>
 
 <!-- ═══════════════════ NAVBAR ═══════════════════ -->
-<nav id="navbar" class="px-6 lg:px-16 py-4 flex items-center justify-between" style="display:flex;align-items:center;justify-content:space-between;padding:16px 64px;background:rgba(255,255,255,.97);box-shadow:0 2px 32px rgba(10,31,68,.08)">
-  <a href="#" onclick="showPage('home',this)" class="flex items-center gap-3" style="display:flex;align-items:center;gap:12px;text-decoration:none">
-    <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#1D6FD8,#0F56C4);display:flex;align-items:center;justify-content:center">
-      <span style="color:#fff;font-weight:900;font-size:1rem;font-family:'Playfair Display',serif">C</span>
-    </div>
-    <div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#0A1F44;line-height:1">CBS Formation</div>
-      <div style="font-size:.65rem;color:#1D6FD8;letter-spacing:.12em;text-transform:uppercase;font-weight:600">Centre de Formation</div>
-    </div>
-  </a>
+<nav id="navbar">
+  <div class="navbar-inner">
+    <a href="#" onclick="showPage('home',this)" style="display:flex;align-items:center;gap:12px;text-decoration:none">
+      <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#1D6FD8,#0F56C4);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <span style="color:#fff;font-weight:900;font-size:1rem;font-family:'Playfair Display',serif">C</span>
+      </div>
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#0A1F44;line-height:1">CBS Formation</div>
+        <div style="font-size:.6rem;color:#1D6FD8;letter-spacing:.12em;text-transform:uppercase;font-weight:600">Centre de Formation</div>
+      </div>
+    </a>
 
-  <!-- Desktop links -->
-  <div class="hidden lg:flex items-center gap-8" id="desktop-nav" style="display:flex;align-items:center;gap:32px">
-    <a href="#" class="nav-link active" data-page="home" onclick="showPage('home',this)">Accueil</a>
-    <a href="#" class="nav-link" data-page="about" onclick="showPage('about',this)">À propos</a>
-    <a href="#" class="nav-link" data-page="formations" onclick="showPage('formations',this)">Formations</a>
-    <a href="#" class="nav-link" data-page="evenements" onclick="showPage('evenements',this)">Événements</a>
-    <a href="#" class="nav-link" data-page="contact" onclick="showPage('contact',this)">Contact</a>
-    <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-primary" style="padding:10px 22px;font-size:.85rem">S'inscrire</a>
+    <!-- Desktop links -->
+    <div id="desktop-nav">
+      <a href="#" class="nav-link active" data-page="home" onclick="showPage('home',this)">Accueil</a>
+      <a href="#" class="nav-link" data-page="about" onclick="showPage('about',this)">À propos</a>
+      <a href="#" class="nav-link" data-page="formations" onclick="showPage('formations',this)">Formations</a>
+      <a href="#" class="nav-link" data-page="evenements" onclick="showPage('evenements',this)">Événements</a>
+      <a href="#" class="nav-link" data-page="contact" onclick="showPage('contact',this)">Contact</a>
+      <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-primary" style="padding:10px 22px;font-size:.85rem">S'inscrire</a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button id="hamburger" onclick="toggleMobileMenu()">
+      <span style="width:24px;height:2px;background:#0A1F44;border-radius:2px;display:block;transition:all .3s" id="h1"></span>
+      <span style="width:24px;height:2px;background:#0A1F44;border-radius:2px;display:block;transition:all .3s" id="h2"></span>
+      <span style="width:24px;height:2px;background:#0A1F44;border-radius:2px;display:block;transition:all .3s" id="h3"></span>
+    </button>
   </div>
-
-  <!-- Mobile hamburger -->
-  <button id="hamburger" onclick="toggleMobileMenu()" style="display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px" class="lg:hidden">
-    <span style="width:24px;height:2px;background:#0A1F44;border-radius:2px;transition:all .3s" id="h1"></span>
-    <span style="width:24px;height:2px;background:#0A1F44;border-radius:2px;transition:all .3s" id="h2"></span>
-    <span style="width:24px;height:2px;background:#0A1F44;border-radius:2px;transition:all .3s" id="h3"></span>
-  </button>
 </nav>
 
 <!-- Mobile menu -->
-<div id="mobile-menu" style="display:none;flex-direction:column;background:#fff;padding:20px 24px;gap:16px;border-top:1px solid #e2e8f0;box-shadow:0 8px 30px rgba(0,0,0,.1);position:fixed;top:97px;left:0;right:0;z-index:999">
+<div id="mobile-menu" style="flex-direction:column;background:#fff;padding:20px 24px;gap:16px;border-top:1px solid #e2e8f0;box-shadow:0 8px 30px rgba(0,0,0,.1);position:fixed;top:93px;left:0;right:0;z-index:999">
   <a href="#" class="nav-link" onclick="showPage('home',this);toggleMobileMenu()" data-page="home">Accueil</a>
   <a href="#" class="nav-link" onclick="showPage('about',this);toggleMobileMenu()" data-page="about">À propos</a>
   <a href="#" class="nav-link" onclick="showPage('formations',this);toggleMobileMenu()" data-page="formations">Formations</a>
   <a href="#" class="nav-link" onclick="showPage('evenements',this);toggleMobileMenu()" data-page="evenements">Événements</a>
   <a href="#" class="nav-link" onclick="showPage('contact',this);toggleMobileMenu()" data-page="contact">Contact</a>
+  <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'));toggleMobileMenu()" class="btn-primary" style="text-align:center">S'inscrire</a>
 </div>
+
 
 <!-- ═══════════════════════════════════════════════════════
      PAGE: HOME
 ══════════════════════════════════════════════════════════ -->
-<div id="page-home" class="page active" style="padding-top:97px">
+<div id="page-home" class="page active" style="padding-top:93px">
 
   <!-- HERO -->
-  <section class="hero-bg min-h-screen flex items-center relative" style="min-height:calc(100vh - 97px);display:flex;align-items:center;padding:80px 0">
+  <section class="hero-bg hero-section" style="padding:80px 0 100px;position:relative">
     <div class="hero-blob" style="width:500px;height:500px;background:#4A90E2;top:-100px;right:-100px"></div>
     <div class="hero-blob float-anim" style="width:300px;height:300px;background:#1D6FD8;bottom:50px;left:-80px;animation-delay:.3s"></div>
-    <div class="container mx-auto px-6 lg:px-16" style="max-width:1200px;margin:0 auto;padding:0 64px;position:relative;z-index:1">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+    <div class="container-fluid" style="position:relative;z-index:1">
+      <div class="hero-grid">
         <div>
           <div class="tag" style="border-color:rgba(255,255,255,.4);color:rgba(255,255,255,.9);margin-bottom:24px">Centre Agréé · Éligible FDFP</div>
-          <h1 class="font-display" style="font-size:clamp(2.4rem,5vw,3.6rem);font-weight:900;color:#fff;line-height:1.12;margin-bottom:24px">
+          <h1 class="font-display hero-title" style="font-size:clamp(2rem,5vw,3.6rem);font-weight:900;color:#fff;line-height:1.12;margin-bottom:24px">
             L'art de <span class="animate-underline">former</span><br/>des leaders
           </h1>
           <p style="color:rgba(255,255,255,.78);font-size:1.05rem;line-height:1.75;max-width:480px;margin-bottom:36px">
             CBS Formation accompagne entreprises et particuliers dans le développement de compétences modernes. Des programmes qualifiants, éligibles au FDFP, animés par des experts reconnus.
           </p>
-          <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <div class="hero-btns" style="display:flex;gap:16px;flex-wrap:wrap">
             <a href="#" onclick="showPage('formations',document.querySelector('[data-page=formations]'))" class="btn-white">Nos formations →</a>
             <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-outline" style="border-color:rgba(255,255,255,.5);color:#fff">Nous contacter</a>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:20px" class="float-anim-2">
-          <!-- Stat cards floating -->
-          <div style="background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:24px;display:flex;align-items:center;gap:16px">
-            <div style="width:48px;height:48px;background:linear-gradient(135deg,#1D6FD8,#0F56C4);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem">🎓</div>
+        <div class="hero-stats float-anim-2">
+          <div style="background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:16px">
+            <div style="width:48px;height:48px;background:linear-gradient(135deg,#1D6FD8,#0F56C4);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0">🎓</div>
             <div>
               <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#fff">2 500+</div>
               <div style="color:rgba(255,255,255,.7);font-size:.88rem">Participants formés</div>
             </div>
           </div>
-          <div style="background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:24px;display:flex;align-items:center;gap:16px;margin-left:40px">
-            <div style="width:48px;height:48px;background:linear-gradient(135deg,#C9A84C,#E8C060);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem">🏆</div>
+          <div style="background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:16px">
+            <div style="width:48px;height:48px;background:linear-gradient(135deg,#C9A84C,#E8C060);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0">🏆</div>
             <div>
               <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#fff">120+</div>
               <div style="color:rgba(255,255,255,.7);font-size:.88rem">Formations réalisées</div>
             </div>
           </div>
-          <div style="background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:24px;display:flex;align-items:center;gap:16px">
-            <div style="width:48px;height:48px;background:rgba(255,255,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem">👨‍🏫</div>
+          <div style="background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:16px">
+            <div style="width:48px;height:48px;background:rgba(255,255,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0">👨‍🏫</div>
             <div>
               <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#fff">15</div>
               <div style="color:rgba(255,255,255,.7);font-size:.88rem">Formateurs experts</div>
@@ -363,41 +473,41 @@
       </div>
     </div>
     <!-- Scroll indicator -->
-    <div style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:.78rem;letter-spacing:.1em">
+    <div style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:.72rem;letter-spacing:.1em">
       <span>DÉFILER</span>
-      <div style="width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,.5),transparent);animation:float-y 2s ease-in-out infinite"></div>
+      <div style="width:1px;height:32px;background:linear-gradient(to bottom,rgba(255,255,255,.5),transparent);animation:float-y 2s ease-in-out infinite"></div>
     </div>
   </section>
 
   <!-- ABOUT TEASER -->
-  <section style="padding:96px 0;background:#fff">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+  <section class="section-pad" style="padding:80px 0;background:#fff">
+    <div class="container-fluid">
+      <div class="grid-2">
         <div class="reveal">
           <div class="tag" style="margin-bottom:20px">Qui sommes-nous ?</div>
-          <h2 class="font-display" style="font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:#0A1F44;line-height:1.2;margin-bottom:20px">Former aujourd'hui,<br/>pour impacter demain</h2>
+          <h2 class="font-display" style="font-size:clamp(1.6rem,3vw,2.6rem);font-weight:700;color:#0A1F44;line-height:1.2;margin-bottom:20px">Former aujourd'hui,<br/>pour impacter demain</h2>
           <div class="section-divider" style="margin-bottom:24px"></div>
           <p style="color:#4A5568;line-height:1.8;margin-bottom:20px">Le Cabinet CBS Formation est un centre de formation professionnelle agréé, spécialisé dans le développement des compétences des entreprises et particuliers.</p>
           <p style="color:#4A5568;line-height:1.8;margin-bottom:32px">Nos programmes sont conçus pour répondre aux besoins actuels du marché et sont <strong style="color:#1D6FD8">éligibles au FDFP</strong>.</p>
           <a href="#" onclick="showPage('about',document.querySelector('[data-page=about]'))" class="btn-primary">En savoir plus →</a>
         </div>
-        <div class="reveal reveal-delay-2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-          <div style="background:linear-gradient(135deg,#0A1F44,#1A3A6B);border-radius:16px;padding:28px;color:#fff">
+        <div class="reveal reveal-delay-2 grid-2-2">
+          <div style="background:linear-gradient(135deg,#0A1F44,#1A3A6B);border-radius:16px;padding:24px;color:#fff">
             <div style="font-size:2rem;margin-bottom:8px">🎯</div>
             <h4 style="font-weight:700;margin-bottom:8px;font-size:1rem">Notre Mission</h4>
             <p style="color:rgba(255,255,255,.7);font-size:.85rem;line-height:1.6">Accompagner le développement des compétences pour améliorer la performance.</p>
           </div>
-          <div style="background:var(--blue-light);border-radius:16px;padding:28px;margin-top:24px">
+          <div style="background:var(--blue-light);border-radius:16px;padding:24px;margin-top:24px">
             <div style="font-size:2rem;margin-bottom:8px">🔭</div>
             <h4 style="font-weight:700;margin-bottom:8px;font-size:1rem;color:#0A1F44">Notre Vision</h4>
             <p style="color:#4A5568;font-size:.85rem;line-height:1.6">Être la référence en formation professionnelle en Côte d'Ivoire et en Afrique de l'Ouest.</p>
           </div>
-          <div style="background:linear-gradient(135deg,#1D6FD8,#0F56C4);border-radius:16px;padding:28px;color:#fff;margin-top:-24px">
+          <div style="background:linear-gradient(135deg,#1D6FD8,#0F56C4);border-radius:16px;padding:24px;color:#fff;margin-top:-24px">
             <div style="font-size:2rem;margin-bottom:8px">📜</div>
             <h4 style="font-weight:700;margin-bottom:8px;font-size:1rem">Agréé FDFP</h4>
             <p style="color:rgba(255,255,255,.8);font-size:.85rem;line-height:1.6">Formations éligibles au remboursement FDFP pour les entreprises ivoiriennes.</p>
           </div>
-          <div style="background:#fff;border:1.5px solid #D1DCF0;border-radius:16px;padding:28px">
+          <div style="background:#fff;border:1.5px solid #D1DCF0;border-radius:16px;padding:24px">
             <div style="font-size:2rem;margin-bottom:8px">⭐</div>
             <h4 style="font-weight:700;margin-bottom:8px;font-size:1rem;color:#0A1F44">Excellence</h4>
             <p style="color:#4A5568;font-size:.85rem;line-height:1.6">5 distinctions obtenues. Formateurs certifiés et expérimentés.</p>
@@ -408,29 +518,29 @@
   </section>
 
   <!-- DOMAINS -->
-  <section style="padding:96px 0;background:var(--off-white)">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <div class="reveal" style="text-align:center;margin-bottom:56px">
+  <section class="section-pad" style="padding:80px 0;background:var(--off-white)">
+    <div class="container-fluid">
+      <div class="reveal" style="text-align:center;margin-bottom:48px">
         <div class="tag" style="margin-bottom:16px">Nos Formations</div>
-        <h2 class="font-display" style="font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;color:#0A1F44;margin-bottom:16px">Des solutions adaptées à vos besoins</h2>
+        <h2 class="font-display" style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:#0A1F44;margin-bottom:16px">Des solutions adaptées à vos besoins</h2>
         <div class="section-divider" style="margin:0 auto"></div>
       </div>
-      <div class="stagger" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
-        <div class="card-hover" style="background:#fff;border-radius:20px;padding:36px;border:1.5px solid #E8F0FB">
+      <div class="stagger grid-3">
+        <div class="card-hover" style="background:#fff;border-radius:20px;padding:32px;border:1.5px solid #E8F0FB">
           <div style="width:56px;height:56px;background:linear-gradient(135deg,#0A1F44,#1A3A6B);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.5rem">🚛</div>
           <h3 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:10px">Logistique & Supply Chain</h3>
           <p style="color:#4A5568;font-size:.9rem;line-height:1.7;margin-bottom:20px">Incoterms, gestion des stocks, transit & douane, supply chain management, logistique portuaire…</p>
           <div class="prog-bar"><div class="prog-fill" data-width="85"></div></div>
           <div style="font-size:.78rem;color:#1D6FD8;font-weight:600;margin-top:8px">17 séminaires disponibles</div>
         </div>
-        <div class="card-hover" style="background:#fff;border-radius:20px;padding:36px;border:1.5px solid #E8F0FB">
+        <div class="card-hover" style="background:#fff;border-radius:20px;padding:32px;border:1.5px solid #E8F0FB">
           <div style="width:56px;height:56px;background:linear-gradient(135deg,#1D6FD8,#0F56C4);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.5rem">📊</div>
           <h3 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:10px">Marketing & Management</h3>
           <p style="color:#4A5568;font-size:.9rem;line-height:1.7;margin-bottom:20px">Techniques de vente, fidélisation, management qualité, communication, ressources humaines…</p>
           <div class="prog-bar"><div class="prog-fill" data-width="75"></div></div>
           <div style="font-size:.78rem;color:#1D6FD8;font-weight:600;margin-top:8px">15 séminaires disponibles</div>
         </div>
-        <div class="card-hover" style="background:#fff;border-radius:20px;padding:36px;border:1.5px solid #E8F0FB">
+        <div class="card-hover" style="background:#fff;border-radius:20px;padding:32px;border:1.5px solid #E8F0FB">
           <div style="width:56px;height:56px;background:linear-gradient(135deg,#C9A84C,#B8942A);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.5rem">💼</div>
           <h3 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:10px">Comptabilité & Finance</h3>
           <p style="color:#4A5568;font-size:.9rem;line-height:1.7;margin-bottom:20px">Audit, fiscalité, contrôle de gestion, normes IFRS/IAS, finance islamique, trésorerie…</p>
@@ -438,17 +548,17 @@
           <div style="font-size:.78rem;color:#1D6FD8;font-weight:600;margin-top:8px">20 séminaires disponibles</div>
         </div>
       </div>
-      <div style="text-align:center;margin-top:48px">
+      <div style="text-align:center;margin-top:40px">
         <a href="#" onclick="showPage('formations',document.querySelector('[data-page=formations]'))" class="btn-primary">Voir toutes les formations →</a>
       </div>
     </div>
   </section>
 
   <!-- CTA BANNER -->
-  <section style="padding:80px 0;background:linear-gradient(135deg,#0A1F44,#1D6FD8)">
-    <div style="max-width:800px;margin:0 auto;padding:0 64px;text-align:center">
+  <section style="padding:72px 0;background:linear-gradient(135deg,#0A1F44,#1D6FD8)">
+    <div class="container-fluid" style="max-width:800px;text-align:center">
       <div class="reveal">
-        <h2 class="font-display" style="font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:#fff;margin-bottom:20px">Prêt à booster vos compétences ?</h2>
+        <h2 class="font-display" style="font-size:clamp(1.6rem,3vw,2.6rem);font-weight:700;color:#fff;margin-bottom:20px">Prêt à booster vos compétences ?</h2>
         <p style="color:rgba(255,255,255,.8);font-size:1.05rem;margin-bottom:36px;line-height:1.7">Rejoignez les 2 500+ professionnels formés par CBS Formation. Nos programmes sont éligibles au FDFP.</p>
         <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
           <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-white">Nous contacter</a>
@@ -464,11 +574,10 @@
 <!-- ═══════════════════════════════════════════════════════
      PAGE: ABOUT
 ══════════════════════════════════════════════════════════ -->
-<div id="page-about" class="page" style="padding-top:97px">
-  <!-- Header -->
-  <div class="page-header-bg" style="padding:64px 0">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <h1 class="font-display" style="font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;margin-bottom:12px">À propos</h1>
+<div id="page-about" class="page" style="padding-top:93px">
+  <div class="page-header-bg" style="padding:56px 0">
+    <div class="container-fluid">
+      <h1 class="font-display page-header-title" style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:#fff;margin-bottom:12px">À propos</h1>
       <nav style="font-size:.88rem;color:rgba(255,255,255,.6)">
         <a href="#" onclick="showPage('home',document.querySelector('[data-page=home]'))" style="color:rgba(255,255,255,.7);text-decoration:none">Accueil</a>
         <span style="margin:0 8px">/</span>
@@ -477,62 +586,59 @@
     </div>
   </div>
 
-  <!-- Main content -->
-  <section style="padding:96px 0">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start">
-        <!-- Left: description + tabs -->
+  <section style="padding:72px 0">
+    <div class="container-fluid">
+      <div class="grid-2-start">
         <div class="reveal">
           <div class="tag" style="margin-bottom:20px">Qui sommes-nous ?</div>
-          <h2 class="font-display" style="font-size:2.2rem;font-weight:700;color:#0A1F44;margin-bottom:20px">Former aujourd'hui,<br/>pour impacter demain</h2>
+          <h2 class="font-display" style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:#0A1F44;margin-bottom:20px">Former aujourd'hui,<br/>pour impacter demain</h2>
           <div class="section-divider" style="margin-bottom:24px"></div>
           <p style="color:#4A5568;line-height:1.8;margin-bottom:32px">Le Cabinet CBS Formation est un centre de formation professionnelle agréé, spécialisé dans le développement des compétences des entreprises et particuliers. Nos programmes sont conçus pour répondre aux besoins actuels du marché et sont éligibles au FDFP.</p>
 
           <!-- Tabs -->
           <div style="border-radius:12px;overflow:hidden;border:1.5px solid #D1DCF0">
             <div style="display:flex;border-bottom:1.5px solid #D1DCF0">
-              <button class="tab-btn active-tab" onclick="switchTab(this,'hist')" style="flex:1;padding:14px;font-weight:600;font-size:.88rem;border:none;cursor:pointer;transition:all .3s;background:var(--blue-bright);color:#fff">Historique</button>
-              <button class="tab-btn" onclick="switchTab(this,'miss')" style="flex:1;padding:14px;font-weight:600;font-size:.88rem;border:none;cursor:pointer;transition:all .3s;background:#fff;color:#4A5568">Mission</button>
-              <button class="tab-btn" onclick="switchTab(this,'vis')" style="flex:1;padding:14px;font-weight:600;font-size:.88rem;border:none;cursor:pointer;transition:all .3s;background:#fff;color:#4A5568">Vision</button>
+              <button class="tab-btn active-tab" onclick="switchTab(this,'hist')" style="flex:1;padding:12px 8px;font-weight:600;font-size:.82rem;border:none;cursor:pointer;transition:all .3s;background:var(--blue-bright);color:#fff">Historique</button>
+              <button class="tab-btn" onclick="switchTab(this,'miss')" style="flex:1;padding:12px 8px;font-weight:600;font-size:.82rem;border:none;cursor:pointer;transition:all .3s;background:#fff;color:#4A5568">Mission</button>
+              <button class="tab-btn" onclick="switchTab(this,'vis')" style="flex:1;padding:12px 8px;font-weight:600;font-size:.82rem;border:none;cursor:pointer;transition:all .3s;background:#fff;color:#4A5568">Vision</button>
             </div>
-            <div id="tab-hist" class="tab-content" style="padding:24px;background:#fff">
+            <div id="tab-hist" class="tab-content" style="padding:20px;background:#fff">
               <p style="color:#4A5568;line-height:1.8">Depuis sa création, CBS Formation s'est donné pour objectif d'offrir des formations de qualité, adaptées aux réalités du terrain, avec des formateurs expérimentés et passionnés.</p>
             </div>
-            <div id="tab-miss" class="tab-content" style="display:none;padding:24px;background:#fff">
+            <div id="tab-miss" class="tab-content" style="display:none;padding:20px;background:#fff">
               <p style="color:#4A5568;line-height:1.8">Accompagner le développement des compétences pour améliorer la performance individuelle et collective des acteurs économiques en Côte d'Ivoire et dans la sous-région.</p>
             </div>
-            <div id="tab-vis" class="tab-content" style="display:none;padding:24px;background:#fff">
+            <div id="tab-vis" class="tab-content" style="display:none;padding:20px;background:#fff">
               <p style="color:#4A5568;line-height:1.8">Être une référence incontournable en formation professionnelle en Côte d'Ivoire et en Afrique de l'Ouest, reconnue pour son excellence et ses résultats mesurables.</p>
             </div>
           </div>
         </div>
 
-        <!-- Right: values -->
         <div class="reveal reveal-delay-2">
           <h3 style="font-weight:700;font-size:1.3rem;color:#0A1F44;margin-bottom:24px">Nos valeurs fondamentales</h3>
-          <div style="display:flex;flex-direction:column;gap:16px">
-            <div style="display:flex;gap:16px;align-items:flex-start;padding:20px;border:1.5px solid #E8F0FB;border-radius:12px;transition:border-color .3s" onmouseenter="this.style.borderColor='#1D6FD8'" onmouseleave="this.style.borderColor='#E8F0FB'">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;border:1.5px solid #E8F0FB;border-radius:12px;transition:border-color .3s" onmouseenter="this.style.borderColor='#1D6FD8'" onmouseleave="this.style.borderColor='#E8F0FB'">
               <div style="width:44px;height:44px;background:var(--blue-light);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem">✅</div>
               <div>
                 <h4 style="font-weight:700;color:#0A1F44;margin-bottom:4px">Excellence</h4>
                 <p style="color:#4A5568;font-size:.88rem;line-height:1.6">Des formateurs certifiés et expérimentés pour des formations de qualité supérieure.</p>
               </div>
             </div>
-            <div style="display:flex;gap:16px;align-items:flex-start;padding:20px;border:1.5px solid #E8F0FB;border-radius:12px;transition:border-color .3s" onmouseenter="this.style.borderColor='#1D6FD8'" onmouseleave="this.style.borderColor='#E8F0FB'">
+            <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;border:1.5px solid #E8F0FB;border-radius:12px;transition:border-color .3s" onmouseenter="this.style.borderColor='#1D6FD8'" onmouseleave="this.style.borderColor='#E8F0FB'">
               <div style="width:44px;height:44px;background:var(--blue-light);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem">🤝</div>
               <div>
                 <h4 style="font-weight:700;color:#0A1F44;margin-bottom:4px">Accompagnement</h4>
                 <p style="color:#4A5568;font-size:.88rem;line-height:1.6">Un suivi personnalisé pour chaque participant, avant, pendant et après la formation.</p>
               </div>
             </div>
-            <div style="display:flex;gap:16px;align-items:flex-start;padding:20px;border:1.5px solid #E8F0FB;border-radius:12px;transition:border-color .3s" onmouseenter="this.style.borderColor='#1D6FD8'" onmouseleave="this.style.borderColor='#E8F0FB'">
+            <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;border:1.5px solid #E8F0FB;border-radius:12px;transition:border-color .3s" onmouseenter="this.style.borderColor='#1D6FD8'" onmouseleave="this.style.borderColor='#E8F0FB'">
               <div style="width:44px;height:44px;background:var(--blue-light);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem">🔬</div>
               <div>
                 <h4 style="font-weight:700;color:#0A1F44;margin-bottom:4px">Innovation</h4>
                 <p style="color:#4A5568;font-size:.88rem;line-height:1.6">Des méthodes pédagogiques actualisées et des contenus alignés avec les besoins du marché.</p>
               </div>
             </div>
-            <div style="display:flex;gap:16px;align-items:flex-start;padding:20px;border:1.5px solid #E8F0FB;border-radius:12px;transition:border-color .3s" onmouseenter="this.style.borderColor='#1D6FD8'" onmouseleave="this.style.borderColor='#E8F0FB'">
+            <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;border:1.5px solid #E8F0FB;border-radius:12px;transition:border-color .3s" onmouseenter="this.style.borderColor='#1D6FD8'" onmouseleave="this.style.borderColor='#E8F0FB'">
               <div style="width:44px;height:44px;background:var(--blue-light);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem">🌍</div>
               <div>
                 <h4 style="font-weight:700;color:#0A1F44;margin-bottom:4px">Impact local</h4>
@@ -546,40 +652,40 @@
   </section>
 
   <!-- Stats -->
-  <section class="stat-bg" style="padding:72px 0">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center">
+  <section class="stat-bg" style="padding:64px 0">
+    <div class="container-fluid">
+      <div class="grid-4 stats-counter" style="text-align:center">
         <div class="reveal">
-          <div style="font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:#fff" data-counter="2500">0</div>
-          <div style="font-size:.9rem;color:rgba(255,255,255,.7);margin-top:8px">Participants formés</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff" data-counter="2500">0</div>
+          <div style="font-size:.88rem;color:rgba(255,255,255,.7);margin-top:8px">Participants formés</div>
         </div>
         <div class="reveal reveal-delay-1">
-          <div style="font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:#fff" data-counter="120">0</div>
-          <div style="font-size:.9rem;color:rgba(255,255,255,.7);margin-top:8px">Formations réalisées</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff" data-counter="120">0</div>
+          <div style="font-size:.88rem;color:rgba(255,255,255,.7);margin-top:8px">Formations réalisées</div>
         </div>
         <div class="reveal reveal-delay-2">
-          <div style="font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:#fff" data-counter="15">0</div>
-          <div style="font-size:.9rem;color:rgba(255,255,255,.7);margin-top:8px">Formateurs experts</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff" data-counter="15">0</div>
+          <div style="font-size:.88rem;color:rgba(255,255,255,.7);margin-top:8px">Formateurs experts</div>
         </div>
         <div class="reveal reveal-delay-3">
-          <div style="font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:#fff" data-counter="5">0</div>
-          <div style="font-size:.9rem;color:rgba(255,255,255,.7);margin-top:8px">Distinctions obtenues</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff" data-counter="5">0</div>
+          <div style="font-size:.88rem;color:rgba(255,255,255,.7);margin-top:8px">Distinctions obtenues</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Team -->
-  <section style="padding:96px 0">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <div class="reveal" style="text-align:center;margin-bottom:56px">
+  <section style="padding:72px 0">
+    <div class="container-fluid">
+      <div class="reveal" style="text-align:center;margin-bottom:48px">
         <div class="tag" style="margin-bottom:16px">Notre Équipe</div>
-        <h2 class="font-display" style="font-size:2.2rem;font-weight:700;color:#0A1F44;margin-bottom:16px">Des formateurs passionnés</h2>
+        <h2 class="font-display" style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:#0A1F44;margin-bottom:16px">Des formateurs passionnés</h2>
         <div class="section-divider" style="margin:0 auto"></div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div class="grid-3">
         <div class="reveal card-hover" style="border-radius:20px;overflow:hidden;border:1.5px solid #E8F0FB;text-align:center">
-          <div style="background:linear-gradient(135deg,#0A1F44,#1A3A6B);height:200px;display:flex;align-items:center;justify-content:center;font-size:4rem">👨‍💼</div>
+          <div style="background:linear-gradient(135deg,#0A1F44,#1A3A6B);height:180px;display:flex;align-items:center;justify-content:center;font-size:3.5rem">👨‍💼</div>
           <div style="padding:24px">
             <h4 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:4px">Jean Kouadio</h4>
             <div style="color:#1D6FD8;font-size:.85rem;font-weight:600;margin-bottom:12px">Formateur en Management</div>
@@ -587,7 +693,7 @@
           </div>
         </div>
         <div class="reveal reveal-delay-2 card-hover" style="border-radius:20px;overflow:hidden;border:1.5px solid #E8F0FB;text-align:center">
-          <div style="background:linear-gradient(135deg,#1D6FD8,#0F56C4);height:200px;display:flex;align-items:center;justify-content:center;font-size:4rem">👩‍💼</div>
+          <div style="background:linear-gradient(135deg,#1D6FD8,#0F56C4);height:180px;display:flex;align-items:center;justify-content:center;font-size:3.5rem">👩‍💼</div>
           <div style="padding:24px">
             <h4 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:4px">Aïcha Traoré</h4>
             <div style="color:#1D6FD8;font-size:.85rem;font-weight:600;margin-bottom:12px">Formatrice en Comptabilité</div>
@@ -595,7 +701,7 @@
           </div>
         </div>
         <div class="reveal reveal-delay-3 card-hover" style="border-radius:20px;overflow:hidden;border:1.5px solid #E8F0FB;text-align:center">
-          <div style="background:linear-gradient(135deg,#C9A84C,#B8942A);height:200px;display:flex;align-items:center;justify-content:center;font-size:4rem">👨‍💻</div>
+          <div style="background:linear-gradient(135deg,#C9A84C,#B8942A);height:180px;display:flex;align-items:center;justify-content:center;font-size:3.5rem">👨‍💻</div>
           <div style="padding:24px">
             <h4 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:4px">Mamadou Diabaté</h4>
             <div style="color:#1D6FD8;font-size:.85rem;font-weight:600;margin-bottom:12px">Formateur en Informatique</div>
@@ -611,10 +717,10 @@
 <!-- ═══════════════════════════════════════════════════════
      PAGE: FORMATIONS
 ══════════════════════════════════════════════════════════ -->
-<div id="page-formations" class="page" style="padding-top:97px">
-  <div class="page-header-bg" style="padding:64px 0">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <h1 class="font-display" style="font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;margin-bottom:12px">Nos Formations</h1>
+<div id="page-formations" class="page" style="padding-top:93px">
+  <div class="page-header-bg" style="padding:56px 0">
+    <div class="container-fluid">
+      <h1 class="font-display page-header-title" style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:#fff;margin-bottom:12px">Nos Formations</h1>
       <nav style="font-size:.88rem;color:rgba(255,255,255,.6)">
         <a href="#" onclick="showPage('home',document.querySelector('[data-page=home]'))" style="color:rgba(255,255,255,.7);text-decoration:none">Accueil</a>
         <span style="margin:0 8px">/</span><span style="color:#fff">Formations</span>
@@ -622,17 +728,16 @@
     </div>
   </div>
 
-  <!-- Domains -->
-  <section style="padding:80px 0">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <div class="reveal" style="text-align:center;margin-bottom:56px">
+  <section style="padding:72px 0">
+    <div class="container-fluid">
+      <div class="reveal" style="text-align:center;margin-bottom:48px">
         <div class="tag" style="margin-bottom:16px">Domaines</div>
-        <h2 class="font-display" style="font-size:2.2rem;font-weight:700;color:#0A1F44;margin-bottom:16px">Domaines de Formation</h2>
+        <h2 class="font-display" style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:#0A1F44;margin-bottom:16px">Domaines de Formation</h2>
         <div class="section-divider" style="margin:0 auto 20px"></div>
         <p style="color:#4A5568;max-width:560px;margin:0 auto">Des programmes adaptés à vos besoins professionnels, animés par des experts reconnus.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
-        <div class="reveal card-hover" style="background:#fff;border:1.5px solid #E8F0FB;border-radius:20px;padding:36px;text-align:center">
+      <div class="grid-3">
+        <div class="reveal card-hover" style="background:#fff;border:1.5px solid #E8F0FB;border-radius:20px;padding:32px;text-align:center">
           <div style="width:72px;height:72px;background:linear-gradient(135deg,#0A1F44,#1A3A6B);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:2rem">🚛</div>
           <h3 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:12px">Logistique & Supply Chain</h3>
           <p style="color:#4A5568;font-size:.88rem;line-height:1.7;margin-bottom:20px">Incoterms, gestion des stocks, transit/douane, supply chain management, logistique portuaire…</p>
@@ -640,7 +745,7 @@
           <br/><br/>
           <button onclick="showFormationDetail('logistique')" class="btn-outline" style="padding:9px 20px;font-size:.83rem">Voir le catalogue</button>
         </div>
-        <div class="reveal reveal-delay-2 card-hover" style="background:#fff;border:1.5px solid #E8F0FB;border-radius:20px;padding:36px;text-align:center">
+        <div class="reveal reveal-delay-2 card-hover" style="background:#fff;border:1.5px solid #E8F0FB;border-radius:20px;padding:32px;text-align:center">
           <div style="width:72px;height:72px;background:linear-gradient(135deg,#1D6FD8,#0F56C4);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:2rem">📊</div>
           <h3 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:12px">Marketing & Management</h3>
           <p style="color:#4A5568;font-size:.88rem;line-height:1.7;margin-bottom:20px">Techniques de vente, fidélisation, management qualité, communication, ressources humaines…</p>
@@ -648,7 +753,7 @@
           <br/><br/>
           <button onclick="showFormationDetail('marketing')" class="btn-outline" style="padding:9px 20px;font-size:.83rem">Voir le catalogue</button>
         </div>
-        <div class="reveal reveal-delay-3 card-hover" style="background:#fff;border:1.5px solid #E8F0FB;border-radius:20px;padding:36px;text-align:center">
+        <div class="reveal reveal-delay-3 card-hover" style="background:#fff;border:1.5px solid #E8F0FB;border-radius:20px;padding:32px;text-align:center">
           <div style="width:72px;height:72px;background:linear-gradient(135deg,#C9A84C,#B8942A);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:2rem">💼</div>
           <h3 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:12px">Comptabilité & Finance</h3>
           <p style="color:#4A5568;font-size:.88rem;line-height:1.7;margin-bottom:20px">Audit, fiscalité, contrôle de gestion, normes IFRS/IAS, finance islamique, trésorerie…</p>
@@ -660,15 +765,15 @@
     </div>
   </section>
 
-  <!-- Seminaire detail panels (accordion style) -->
-  <div id="detail-logistique" style="display:none;background:var(--off-white);padding:48px 0;transition:all .3s">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px">
-        <h3 class="font-display" style="font-size:1.6rem;font-weight:700;color:#0A1F44">Transports, Logistique et Supply Chain</h3>
-        <button onclick="showFormationDetail('logistique')" style="background:none;border:none;cursor:pointer;color:#4A5568;font-size:1.3rem">✕</button>
+  <!-- Seminaire detail panels -->
+  <div id="detail-logistique" style="display:none;background:var(--off-white);padding:40px 0">
+    <div class="container-fluid">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:16px">
+        <h3 class="font-display" style="font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:700;color:#0A1F44">Transports, Logistique et Supply Chain</h3>
+        <button onclick="showFormationDetail('logistique')" style="background:none;border:none;cursor:pointer;color:#4A5568;font-size:1.3rem;flex-shrink:0">✕</button>
       </div>
       <div class="table-responsive" style="border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(10,31,68,.08)">
-        <table class="data-table" style="width:100%;border-collapse:collapse">
+        <table class="data-table" style="width:100%;border-collapse:collapse;min-width:500px">
           <thead><tr><th>N°</th><th>Thème</th><th>Durée</th><th>Coût</th></tr></thead>
           <tbody>
             <tr><td>1</td><td>Maîtrise et pratique des incoterms 2010</td><td>3 jours</td><td>400 000 FCFA</td></tr>
@@ -694,14 +799,14 @@
     </div>
   </div>
 
-  <div id="detail-marketing" style="display:none;background:var(--off-white);padding:48px 0">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px">
-        <h3 class="font-display" style="font-size:1.6rem;font-weight:700;color:#0A1F44">Marketing, Management et Ressources Humaines</h3>
-        <button onclick="showFormationDetail('marketing')" style="background:none;border:none;cursor:pointer;color:#4A5568;font-size:1.3rem">✕</button>
+  <div id="detail-marketing" style="display:none;background:var(--off-white);padding:40px 0">
+    <div class="container-fluid">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:16px">
+        <h3 class="font-display" style="font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:700;color:#0A1F44">Marketing, Management et Ressources Humaines</h3>
+        <button onclick="showFormationDetail('marketing')" style="background:none;border:none;cursor:pointer;color:#4A5568;font-size:1.3rem;flex-shrink:0">✕</button>
       </div>
-      <div style="border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(10,31,68,.08)">
-        <table class="data-table" style="width:100%;border-collapse:collapse">
+      <div class="table-responsive" style="border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(10,31,68,.08)">
+        <table class="data-table" style="width:100%;border-collapse:collapse;min-width:500px">
           <thead><tr><th>N°</th><th>Thème</th><th>Durée</th><th>Coût</th></tr></thead>
           <tbody>
             <tr><td>1</td><td>Techniques de Vente et de Négociation</td><td>3 jours</td><td>350 000 FCFA</td></tr>
@@ -725,14 +830,14 @@
     </div>
   </div>
 
-  <div id="detail-finance" style="display:none;background:var(--off-white);padding:48px 0">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px">
-        <h3 class="font-display" style="font-size:1.6rem;font-weight:700;color:#0A1F44">Comptabilité, Audit et Contrôle de Gestion</h3>
-        <button onclick="showFormationDetail('finance')" style="background:none;border:none;cursor:pointer;color:#4A5568;font-size:1.3rem">✕</button>
+  <div id="detail-finance" style="display:none;background:var(--off-white);padding:40px 0">
+    <div class="container-fluid">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:16px">
+        <h3 class="font-display" style="font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:700;color:#0A1F44">Comptabilité, Audit et Contrôle de Gestion</h3>
+        <button onclick="showFormationDetail('finance')" style="background:none;border:none;cursor:pointer;color:#4A5568;font-size:1.3rem;flex-shrink:0">✕</button>
       </div>
-      <div style="border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(10,31,68,.08)">
-        <table class="data-table" style="width:100%;border-collapse:collapse">
+      <div class="table-responsive" style="border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(10,31,68,.08)">
+        <table class="data-table" style="width:100%;border-collapse:collapse;min-width:500px">
           <thead><tr><th>N°</th><th>Thème</th><th>Durée</th><th>Coût</th></tr></thead>
           <tbody>
             <tr><td>1</td><td>Comptabilité et audit des SFD</td><td>3 jours</td><td>400 000 FCFA</td></tr>
@@ -762,59 +867,57 @@
   </div>
 
   <!-- CQP Section -->
-  <section style="padding:80px 0;background:var(--off-white)">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <div class="reveal" style="text-align:center;margin-bottom:56px">
+  <section style="padding:72px 0;background:var(--off-white)">
+    <div class="container-fluid">
+      <div class="reveal" style="text-align:center;margin-bottom:48px">
         <div class="tag" style="margin-bottom:16px">CQP</div>
-        <h2 class="font-display" style="font-size:2.2rem;font-weight:700;color:#0A1F44;margin-bottom:16px">Certificats de Qualification Professionnelle</h2>
+        <h2 class="font-display" style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:#0A1F44;margin-bottom:16px">Certificats de Qualification Professionnelle</h2>
         <div class="section-divider" style="margin:0 auto 20px"></div>
         <p style="color:#4A5568;max-width:560px;margin:0 auto">Le CQP atteste vos compétences dans un métier spécifique et améliore votre employabilité. Chaque programme : 30h – 6 samedis de 9h à 14h.</p>
       </div>
-
-      <!-- CQP Cards -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
-        <div class="reveal card-hover" style="background:#fff;border-radius:16px;padding:28px;border:1.5px solid #E8F0FB">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+      <div class="grid-3-cqp">
+        <div class="reveal card-hover" style="background:#fff;border-radius:16px;padding:24px;border:1.5px solid #E8F0FB">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:8px;flex-wrap:wrap">
             <h4 style="font-weight:700;color:#0A1F44;font-size:1rem">Marketing & Stratégie</h4>
             <span class="price-badge">120 000 FCFA</span>
           </div>
           <p style="color:#4A5568;font-size:.85rem;line-height:1.6;margin-bottom:16px">3 niveaux : Action commerciale, merchandising, fidélisation, lancement de produit…</p>
           <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-primary" style="padding:9px 18px;font-size:.82rem">S'inscrire</a>
         </div>
-        <div class="reveal reveal-delay-1 card-hover" style="background:#fff;border-radius:16px;padding:28px;border:1.5px solid #E8F0FB">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+        <div class="reveal reveal-delay-1 card-hover" style="background:#fff;border-radius:16px;padding:24px;border:1.5px solid #E8F0FB">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:8px;flex-wrap:wrap">
             <h4 style="font-weight:700;color:#0A1F44;font-size:1rem">Logistique & Supply Chain</h4>
             <span class="price-badge">150 000 FCFA</span>
           </div>
           <p style="color:#4A5568;font-size:.85rem;line-height:1.6;margin-bottom:16px">4 niveaux : Gestion du parc, transit, stocks, supply chain, qualité…</p>
           <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-primary" style="padding:9px 18px;font-size:.82rem">S'inscrire</a>
         </div>
-        <div class="reveal reveal-delay-2 card-hover" style="background:#fff;border-radius:16px;padding:28px;border:1.5px solid #E8F0FB">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+        <div class="reveal reveal-delay-2 card-hover" style="background:#fff;border-radius:16px;padding:24px;border:1.5px solid #E8F0FB">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:8px;flex-wrap:wrap">
             <h4 style="font-weight:700;color:#0A1F44;font-size:1rem">Ressources Humaines</h4>
             <span class="price-badge">90 000 FCFA</span>
           </div>
           <p style="color:#4A5568;font-size:.85rem;line-height:1.6;margin-bottom:16px">3 niveaux : Paie, recrutement, GPEC, communication interne…</p>
           <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-primary" style="padding:9px 18px;font-size:.82rem">S'inscrire</a>
         </div>
-        <div class="reveal card-hover" style="background:#fff;border-radius:16px;padding:28px;border:1.5px solid #E8F0FB">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+        <div class="reveal card-hover" style="background:#fff;border-radius:16px;padding:24px;border:1.5px solid #E8F0FB">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:8px;flex-wrap:wrap">
             <h4 style="font-weight:700;color:#0A1F44;font-size:1rem">Audit</h4>
             <span class="price-badge">250 000 FCFA</span>
           </div>
           <p style="color:#4A5568;font-size:.85rem;line-height:1.6;margin-bottom:16px">3 niveaux : Méthodologie, contrôle interne, audit bancaire, micro-finance…</p>
           <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-primary" style="padding:9px 18px;font-size:.82rem">S'inscrire</a>
         </div>
-        <div class="reveal reveal-delay-1 card-hover" style="background:#fff;border-radius:16px;padding:28px;border:1.5px solid #E8F0FB">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+        <div class="reveal reveal-delay-1 card-hover" style="background:#fff;border-radius:16px;padding:24px;border:1.5px solid #E8F0FB">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:8px;flex-wrap:wrap">
             <h4 style="font-weight:700;color:#0A1F44;font-size:1rem">Fiscalité & Contrôle de Gestion</h4>
             <span class="price-badge">250 000 FCFA</span>
           </div>
           <p style="color:#4A5568;font-size:.85rem;line-height:1.6;margin-bottom:16px">Fiscalité douanière, contrôle interne, gestion budgétaire, fraudes…</p>
           <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-primary" style="padding:9px 18px;font-size:.82rem">S'inscrire</a>
         </div>
-        <div class="reveal reveal-delay-2 card-hover" style="background:#fff;border-radius:16px;padding:28px;border:1.5px solid #E8F0FB">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+        <div class="reveal reveal-delay-2 card-hover" style="background:#fff;border-radius:16px;padding:24px;border:1.5px solid #E8F0FB">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:8px;flex-wrap:wrap">
             <h4 style="font-weight:700;color:#0A1F44;font-size:1rem">Gestion Financière</h4>
             <span class="price-badge">280 000 FCFA</span>
           </div>
@@ -830,10 +933,10 @@
 <!-- ═══════════════════════════════════════════════════════
      PAGE: ÉVÉNEMENTS
 ══════════════════════════════════════════════════════════ -->
-<div id="page-evenements" class="page" style="padding-top:97px">
-  <div class="page-header-bg" style="padding:64px 0">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <h1 class="font-display" style="font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;margin-bottom:12px">Événements & CQP</h1>
+<div id="page-evenements" class="page" style="padding-top:93px">
+  <div class="page-header-bg" style="padding:56px 0">
+    <div class="container-fluid">
+      <h1 class="font-display page-header-title" style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:#fff;margin-bottom:12px">Événements & CQP</h1>
       <nav style="font-size:.88rem;color:rgba(255,255,255,.6)">
         <a href="#" onclick="showPage('home',document.querySelector('[data-page=home]'))" style="color:rgba(255,255,255,.7);text-decoration:none">Accueil</a>
         <span style="margin:0 8px">/</span><span style="color:#fff">Événements</span>
@@ -841,35 +944,35 @@
     </div>
   </div>
 
-  <section style="padding:80px 0">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <div class="reveal" style="text-align:center;margin-bottom:56px">
+  <section style="padding:72px 0">
+    <div class="container-fluid">
+      <div class="reveal" style="text-align:center;margin-bottom:48px">
         <div class="tag" style="margin-bottom:16px">Nos Événements</div>
-        <h2 class="font-display" style="font-size:2.2rem;font-weight:700;color:#0A1F44;margin-bottom:16px">Participez à nos séminaires et ateliers</h2>
+        <h2 class="font-display" style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:#0A1F44;margin-bottom:16px">Participez à nos séminaires et ateliers</h2>
         <div class="section-divider" style="margin:0 auto 20px"></div>
         <p style="color:#4A5568;max-width:560px;margin:0 auto">Chaque année, CBS Formation organise des événements pour renforcer les compétences des professionnels et étudiants.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:80px">
+      <div class="grid-3" style="margin-bottom:64px">
         <div class="reveal card-hover" style="background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #E8F0FB">
-          <div style="background:linear-gradient(135deg,#0A1F44,#1A3A6B);height:160px;display:flex;align-items:center;justify-content:center;font-size:4rem">🎤</div>
-          <div style="padding:28px">
+          <div style="background:linear-gradient(135deg,#0A1F44,#1A3A6B);height:140px;display:flex;align-items:center;justify-content:center;font-size:3.5rem">🎤</div>
+          <div style="padding:24px">
             <h4 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:10px">Séminaires thématiques</h4>
             <p style="color:#4A5568;font-size:.88rem;line-height:1.7;margin-bottom:20px">Des rencontres sur la logistique, le marketing, la finance et bien plus, animées par des experts reconnus.</p>
             <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-primary" style="padding:10px 20px;font-size:.85rem">S'inscrire</a>
           </div>
         </div>
         <div class="reveal reveal-delay-2 card-hover" style="background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #E8F0FB">
-          <div style="background:linear-gradient(135deg,#1D6FD8,#0F56C4);height:160px;display:flex;align-items:center;justify-content:center;font-size:4rem">🧠</div>
-          <div style="padding:28px">
+          <div style="background:linear-gradient(135deg,#1D6FD8,#0F56C4);height:140px;display:flex;align-items:center;justify-content:center;font-size:3.5rem">🧠</div>
+          <div style="padding:24px">
             <h4 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:10px">Masterclass spécialisées</h4>
             <p style="color:#4A5568;font-size:.88rem;line-height:1.7;margin-bottom:20px">Sessions intensives pour maîtriser un domaine précis avec des outils pratiques et études de cas réels.</p>
             <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-primary" style="padding:10px 20px;font-size:.85rem">S'inscrire</a>
           </div>
         </div>
         <div class="reveal reveal-delay-3 card-hover" style="background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #E8F0FB">
-          <div style="background:linear-gradient(135deg,#C9A84C,#B8942A);height:160px;display:flex;align-items:center;justify-content:center;font-size:4rem">🛠️</div>
-          <div style="padding:28px">
+          <div style="background:linear-gradient(135deg,#C9A84C,#B8942A);height:140px;display:flex;align-items:center;justify-content:center;font-size:3.5rem">🛠️</div>
+          <div style="padding:24px">
             <h4 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:10px">Ateliers pratiques</h4>
             <p style="color:#4A5568;font-size:.88rem;line-height:1.7;margin-bottom:20px">Formations courtes et interactives axées sur la mise en pratique immédiate des compétences acquises.</p>
             <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-primary" style="padding:10px 20px;font-size:.85rem">S'inscrire</a>
@@ -878,36 +981,38 @@
       </div>
 
       <!-- CQP info -->
-      <div style="background:var(--blue-light);border-radius:24px;padding:56px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center">
-        <div class="reveal">
-          <div class="tag" style="margin-bottom:20px">CQP</div>
-          <h2 class="font-display" style="font-size:2rem;font-weight:700;color:#0A1F44;margin-bottom:16px">Obtenez votre CQP avec CBS Formation</h2>
-          <div class="section-divider" style="margin-bottom:24px"></div>
-          <p style="color:#4A5568;line-height:1.8;margin-bottom:24px">Le Certificat de Qualification Professionnelle (CQP) atteste vos compétences dans un métier spécifique et améliore votre employabilité.</p>
-          <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-primary">S'inscrire au CQP →</a>
-        </div>
-        <div class="reveal reveal-delay-2">
-          <h3 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:20px">Avantages du CQP</h3>
-          <div style="display:flex;flex-direction:column;gap:12px">
-            <div style="display:flex;gap:12px;align-items:center">
-              <div style="width:32px;height:32px;background:var(--blue-bright);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;flex-shrink:0">✓</div>
-              <span style="color:#0A1F44;font-weight:500">Reconnaissance officielle des compétences</span>
-            </div>
-            <div style="display:flex;gap:12px;align-items:center">
-              <div style="width:32px;height:32px;background:var(--blue-bright);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;flex-shrink:0">✓</div>
-              <span style="color:#0A1F44;font-weight:500">Meilleures opportunités professionnelles</span>
-            </div>
-            <div style="display:flex;gap:12px;align-items:center">
-              <div style="width:32px;height:32px;background:var(--blue-bright);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;flex-shrink:0">✓</div>
-              <span style="color:#0A1F44;font-weight:500">Formation adaptée aux besoins du marché</span>
-            </div>
-            <div style="display:flex;gap:12px;align-items:center">
-              <div style="width:32px;height:32px;background:var(--blue-bright);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;flex-shrink:0">✓</div>
-              <span style="color:#0A1F44;font-weight:500">Sessions le samedi : 9h–14h (30h total)</span>
-            </div>
-            <div style="display:flex;gap:12px;align-items:center">
-              <div style="width:32px;height:32px;background:var(--blue-bright);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;flex-shrink:0">✓</div>
-              <span style="color:#0A1F44;font-weight:500">Éligible au remboursement FDFP</span>
+      <div class="cqp-banner" style="background:var(--blue-light);border-radius:24px;padding:48px">
+        <div class="cqp-info-grid">
+          <div class="reveal">
+            <div class="tag" style="margin-bottom:20px">CQP</div>
+            <h2 class="font-display" style="font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#0A1F44;margin-bottom:16px">Obtenez votre CQP avec CBS Formation</h2>
+            <div class="section-divider" style="margin-bottom:24px"></div>
+            <p style="color:#4A5568;line-height:1.8;margin-bottom:24px">Le Certificat de Qualification Professionnelle (CQP) atteste vos compétences dans un métier spécifique et améliore votre employabilité.</p>
+            <a href="#" onclick="showPage('contact',document.querySelector('[data-page=contact]'))" class="btn-primary">S'inscrire au CQP →</a>
+          </div>
+          <div class="reveal reveal-delay-2">
+            <h3 style="font-weight:700;font-size:1.1rem;color:#0A1F44;margin-bottom:20px">Avantages du CQP</h3>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:12px;align-items:center">
+                <div style="width:32px;height:32px;background:var(--blue-bright);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;flex-shrink:0">✓</div>
+                <span style="color:#0A1F44;font-weight:500">Reconnaissance officielle des compétences</span>
+              </div>
+              <div style="display:flex;gap:12px;align-items:center">
+                <div style="width:32px;height:32px;background:var(--blue-bright);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;flex-shrink:0">✓</div>
+                <span style="color:#0A1F44;font-weight:500">Meilleures opportunités professionnelles</span>
+              </div>
+              <div style="display:flex;gap:12px;align-items:center">
+                <div style="width:32px;height:32px;background:var(--blue-bright);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;flex-shrink:0">✓</div>
+                <span style="color:#0A1F44;font-weight:500">Formation adaptée aux besoins du marché</span>
+              </div>
+              <div style="display:flex;gap:12px;align-items:center">
+                <div style="width:32px;height:32px;background:var(--blue-bright);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;flex-shrink:0">✓</div>
+                <span style="color:#0A1F44;font-weight:500">Sessions le samedi : 9h–14h (30h total)</span>
+              </div>
+              <div style="display:flex;gap:12px;align-items:center">
+                <div style="width:32px;height:32px;background:var(--blue-bright);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;flex-shrink:0">✓</div>
+                <span style="color:#0A1F44;font-weight:500">Éligible au remboursement FDFP</span>
+              </div>
             </div>
           </div>
         </div>
@@ -920,10 +1025,10 @@
 <!-- ═══════════════════════════════════════════════════════
      PAGE: CONTACT
 ══════════════════════════════════════════════════════════ -->
-<div id="page-contact" class="page" style="padding-top:97px">
-  <div class="page-header-bg" style="padding:64px 0">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <h1 class="font-display" style="font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;margin-bottom:12px">Contactez-nous</h1>
+<div id="page-contact" class="page" style="padding-top:93px">
+  <div class="page-header-bg" style="padding:56px 0">
+    <div class="container-fluid">
+      <h1 class="font-display page-header-title" style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:#fff;margin-bottom:12px">Contactez-nous</h1>
       <nav style="font-size:.88rem;color:rgba(255,255,255,.6)">
         <a href="#" onclick="showPage('home',document.querySelector('[data-page=home]'))" style="color:rgba(255,255,255,.7);text-decoration:none">Accueil</a>
         <span style="margin:0 8px">/</span><span style="color:#fff">Contact</span>
@@ -931,13 +1036,13 @@
     </div>
   </div>
 
-  <section style="padding:80px 0">
-    <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-      <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start">
+  <section style="padding:72px 0">
+    <div class="container-fluid">
+      <div class="grid-2-contact">
         <!-- Info -->
         <div class="reveal">
           <div class="tag" style="margin-bottom:20px">Contact</div>
-          <h2 class="font-display" style="font-size:2rem;font-weight:700;color:#0A1F44;margin-bottom:16px">Parlons de votre projet de formation</h2>
+          <h2 class="font-display" style="font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#0A1F44;margin-bottom:16px">Parlons de votre projet de formation</h2>
           <div class="section-divider" style="margin-bottom:28px"></div>
           <p style="color:#4A5568;line-height:1.8;margin-bottom:36px">Notre équipe est disponible pour vous conseiller sur les formations adaptées à vos besoins et vous accompagner dans le montage de votre dossier FDFP.</p>
 
@@ -953,14 +1058,14 @@
               <div style="width:48px;height:48px;background:var(--blue-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">📞</div>
               <div>
                 <div style="font-weight:700;color:#0A1F44;margin-bottom:2px">Téléphone</div>
-                <div style="color:#4A5568;font-size:.9rem">+225 01 41 58 58 12</div>
+                <div style="color:#4A5568;font-size:.9rem"><a href="tel:+2250141585812" style="color:#4A5568;text-decoration:none">+225 01 41 58 58 12</a></div>
               </div>
             </div>
             <div style="display:flex;gap:16px;align-items:center">
               <div style="width:48px;height:48px;background:var(--blue-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">✉️</div>
               <div>
                 <div style="font-weight:700;color:#0A1F44;margin-bottom:2px">Email</div>
-                <div style="color:#4A5568;font-size:.9rem">cbsformation0@gmail.com</div>
+                <div style="color:#4A5568;font-size:.9rem"><a href="mailto:cbsformation0@gmail.com" style="color:#4A5568;text-decoration:none">cbsformation0@gmail.com</a></div>
               </div>
             </div>
             <div style="display:flex;gap:16px;align-items:center">
@@ -972,8 +1077,8 @@
             </div>
           </div>
 
-          <!-- Map placeholder -->
-          <div style="margin-top:36px;border-radius:16px;overflow:hidden;height:220px;border:1.5px solid #D1DCF0">
+          <!-- Map -->
+          <div style="margin-top:32px;border-radius:16px;overflow:hidden;height:200px;border:1.5px solid #D1DCF0">
             <iframe src="https://www.google.com/maps?q=Bingerville,+Côte+d'Ivoire&output=embed"
               style="width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>
           </div>
@@ -981,12 +1086,12 @@
 
         <!-- Form -->
         <div class="reveal reveal-delay-2">
-          <div style="background:#fff;border-radius:24px;padding:40px;box-shadow:0 8px 40px rgba(10,31,68,.1);border:1.5px solid #E8F0FB">
-            <h3 style="font-weight:700;font-size:1.3rem;color:#0A1F44;margin-bottom:28px">Envoyez-nous un message</h3>
+          <div style="background:#fff;border-radius:24px;padding:32px;box-shadow:0 8px 40px rgba(10,31,68,.1);border:1.5px solid #E8F0FB">
+            <h3 style="font-weight:700;font-size:1.3rem;color:#0A1F44;margin-bottom:24px">Envoyez-nous un message</h3>
             <div id="form-success" style="display:none;background:#ECFDF5;border:1.5px solid #059669;border-radius:12px;padding:20px;margin-bottom:24px;color:#065F46;font-weight:600;text-align:center">
               ✅ Message envoyé ! Nous vous répondrons sous 24h.
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+            <div class="form-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
               <div>
                 <label style="font-size:.85rem;font-weight:600;color:#0A1F44;display:block;margin-bottom:6px">Nom complet</label>
                 <input id="f-name" class="form-input" type="text" placeholder="Votre nom"/>
@@ -996,7 +1101,7 @@
                 <input id="f-email" class="form-input" type="email" placeholder="votre@email.com"/>
               </div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+            <div class="form-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
               <div>
                 <label style="font-size:.85rem;font-weight:600;color:#0A1F44;display:block;margin-bottom:6px">Téléphone</label>
                 <input id="f-phone" class="form-input" type="tel" placeholder="+225 00 00 00 00 00"/>
@@ -1034,12 +1139,12 @@
 
 
 <!-- ═══════════════════ FOOTER ═══════════════════ -->
-<footer style="background:#0A1F44;color:#fff;padding:64px 0 32px">
-  <div style="max-width:1200px;margin:0 auto;padding:0 64px">
-    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px">
+<footer style="background:#0A1F44;color:#fff;padding:56px 0 28px">
+  <div class="container-fluid">
+    <div class="footer-grid">
       <div>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
-          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#1D6FD8,#0F56C4);display:flex;align-items:center;justify-content:center">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#1D6FD8,#0F56C4);display:flex;align-items:center;justify-content:center;flex-shrink:0">
             <span style="color:#fff;font-weight:900;font-size:1rem;font-family:'Playfair Display',serif">C</span>
           </div>
           <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#fff">CBS Formation</div>
@@ -1051,7 +1156,7 @@
         </div>
       </div>
       <div>
-        <h4 style="font-weight:700;margin-bottom:20px;font-size:.95rem">Navigation</h4>
+        <h4 style="font-weight:700;margin-bottom:16px;font-size:.95rem">Navigation</h4>
         <div style="display:flex;flex-direction:column;gap:10px">
           <a href="#" onclick="showPage('home',document.querySelector('[data-page=home]'))" class="footer-link">Accueil</a>
           <a href="#" onclick="showPage('about',document.querySelector('[data-page=about]'))" class="footer-link">À propos</a>
@@ -1061,7 +1166,7 @@
         </div>
       </div>
       <div>
-        <h4 style="font-weight:700;margin-bottom:20px;font-size:.95rem">Formations</h4>
+        <h4 style="font-weight:700;margin-bottom:16px;font-size:.95rem">Formations</h4>
         <div style="display:flex;flex-direction:column;gap:10px">
           <span class="footer-link" style="cursor:default">Logistique</span>
           <span class="footer-link" style="cursor:default">Marketing & RH</span>
@@ -1071,15 +1176,15 @@
         </div>
       </div>
       <div>
-        <h4 style="font-weight:700;margin-bottom:20px;font-size:.95rem">Contact</h4>
+        <h4 style="font-weight:700;margin-bottom:16px;font-size:.95rem">Contact</h4>
         <div style="display:flex;flex-direction:column;gap:12px">
           <div style="color:#94a3b8;font-size:.85rem">📍 Bingerville, Côte d'Ivoire</div>
-          <div style="color:#94a3b8;font-size:.85rem">📞 +225 01 41 58 58 12</div>
-          <div style="color:#94a3b8;font-size:.85rem">✉️ cbsformation0@gmail.com</div>
+          <div style="color:#94a3b8;font-size:.85rem"><a href="tel:+2250141585812" style="color:#94a3b8;text-decoration:none">📞 +225 01 41 58 58 12</a></div>
+          <div style="color:#94a3b8;font-size:.85rem"><a href="mailto:cbsformation0@gmail.com" style="color:#94a3b8;text-decoration:none">✉️ cbsformation0@gmail.com</a></div>
         </div>
       </div>
     </div>
-    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:28px;display:flex;justify-content:space-between;align-items:center;font-size:.83rem;color:#94a3b8;flex-wrap:wrap;gap:12px">
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:.83rem;color:#94a3b8;flex-wrap:wrap;gap:12px">
       <span>© 2025 CBS Formation — Tous droits réservés</span>
       <span>Agréé FDFP · Bingerville, Côte d'Ivoire</span>
     </div>
@@ -1087,7 +1192,7 @@
 </footer>
 
 <!-- Back to top -->
-<button onclick="window.scrollTo({top:0,behavior:'smooth'})" id="back-top" style="position:fixed;bottom:32px;right:32px;width:48px;height:48px;background:linear-gradient(135deg,#1D6FD8,#0F56C4);color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:1.1rem;box-shadow:0 4px 18px rgba(29,111,216,.4);opacity:0;transform:scale(.8);transition:opacity .3s,transform .3s;z-index:900">↑</button>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" id="back-top" style="position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:linear-gradient(135deg,#1D6FD8,#0F56C4);color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:1.1rem;box-shadow:0 4px 18px rgba(29,111,216,.4);opacity:0;transform:scale(.8);transition:opacity .3s,transform .3s;z-index:900">↑</button>
 
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
 <script>
@@ -1100,14 +1205,12 @@ function showPage(id, linkEl) {
   const next = document.getElementById('page-' + id);
   if (!next) return;
 
-  // Update nav links
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
   if (linkEl) {
     const page = linkEl.getAttribute('data-page') || id;
     document.querySelectorAll('[data-page="' + page + '"]').forEach(l => l.classList.add('active'));
   }
 
-  // Animate out
   old.classList.add('fade-out');
   setTimeout(() => {
     old.classList.remove('active','fade-out');
@@ -1140,17 +1243,19 @@ window.addEventListener('scroll', () => {
 /* ── MOBILE MENU ── */
 function toggleMobileMenu() {
   const m = document.getElementById('mobile-menu');
-  const open = m.style.display === 'flex';
-  m.style.display = open ? 'none' : 'flex';
+  const isOpen = m.style.display === 'flex';
+  m.style.display = isOpen ? 'none' : 'flex';
+  // Animate hamburger
+  document.getElementById('h1').style.transform = isOpen ? '' : 'rotate(45deg) translate(5px, 5px)';
+  document.getElementById('h2').style.opacity = isOpen ? '1' : '0';
+  document.getElementById('h3').style.transform = isOpen ? '' : 'rotate(-45deg) translate(5px, -5px)';
 }
 
 /* ── REVEAL ON SCROLL ── */
 function triggerReveal() {
   document.querySelectorAll('.reveal:not(.visible), .stagger:not(.visible)').forEach(el => {
     const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 80) {
-      el.classList.add('visible');
-    }
+    if (rect.top < window.innerHeight - 60) el.classList.add('visible');
   });
 }
 
@@ -1183,7 +1288,7 @@ function triggerProgBars() {
   });
 }
 
-/* ── TABS (About page) ── */
+/* ── TABS ── */
 function switchTab(btn, id) {
   document.querySelectorAll('.tab-btn').forEach(b => {
     b.classList.remove('active-tab');
@@ -1207,7 +1312,7 @@ function showFormationDetail(id) {
   }
   if (el.style.display === 'none') {
     el.style.display = 'block';
-    el.scrollIntoView({behavior:'smooth', block:'start'});
+    setTimeout(() => el.scrollIntoView({behavior:'smooth', block:'start'}), 50);
     openDetail = id;
   } else {
     el.style.display = 'none';
@@ -1230,25 +1335,21 @@ function submitForm() {
   document.getElementById('f-formation').value = '';
 }
 
+/* ── RESPONSIVE INIT ── */
+function handleResize() {
+  const isDesktop = window.innerWidth >= 1024;
+  const desktopNav = document.getElementById('desktop-nav');
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  desktopNav.style.display = isDesktop ? 'flex' : 'none';
+  hamburger.style.display = isDesktop ? 'none' : 'flex';
+  if (isDesktop) mobileMenu.style.display = 'none';
+}
+
 /* ── INIT ── */
 document.addEventListener('DOMContentLoaded', () => {
-  // Show hamburger on mobile
-  if (window.innerWidth < 1024) {
-    document.getElementById('hamburger').style.display = 'flex';
-    document.getElementById('desktop-nav').style.display = 'none';
-  }
-  window.addEventListener('resize', () => {
-    if (window.innerWidth >= 1024) {
-      document.getElementById('hamburger').style.display = 'none';
-      document.getElementById('desktop-nav').style.display = 'flex';
-      document.getElementById('mobile-menu').style.display = 'none';
-    } else {
-      document.getElementById('hamburger').style.display = 'flex';
-      document.getElementById('desktop-nav').style.display = 'none';
-    }
-  });
-
-  // Init visible reveals
+  handleResize();
+  window.addEventListener('resize', handleResize);
   setTimeout(() => {
     triggerReveal();
     triggerCounters();

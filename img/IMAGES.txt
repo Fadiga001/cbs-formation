@@ -1,1 +1,2 @@
+IMAGES.txt
 Placez vos images ici : favicon.ico, logo.png, carousel-1.jpg, about.jpg, team-1/2/3.jpg
